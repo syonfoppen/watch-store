@@ -140,7 +140,7 @@ Content-Type: application/json
 
 {
   "Product_id": 1,
-  "Bidder_id": 1,
+  "User_id": 1,
   "Amount": 3500.00
 }
 ### Place a new bid on product with product id 1
@@ -149,7 +149,7 @@ Content-Type: application/json
 
 {
   "Product_id": 2,
-  "Bidder_id": 2,
+  "User_id": 2,
   "Amount": 60.00
 }
 
