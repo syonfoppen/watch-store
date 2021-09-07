@@ -12,7 +12,7 @@ let users = require("./collections/productCollection");
 console.log(users);
 
 
-app.use('/products', require('./routes/products'));
+app.use('/api/products', require('./routes/products'));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
