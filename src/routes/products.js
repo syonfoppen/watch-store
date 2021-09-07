@@ -12,4 +12,7 @@ router.post('',(req, res ) => {
         status(StatusCodes.CREATED).send('Hier gaan we producten toevoegen');
 });
 
+router.get('/watches',(req, res ) => {
+    res.send('Dit word een lijst met watches');
+});
 module.exports = router;
