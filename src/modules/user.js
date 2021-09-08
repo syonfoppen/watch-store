@@ -8,6 +8,10 @@ class User {
         return this._mail;
     }
 
+    get id() {
+        return this._userId;
+    }
+
     get pass() {
         return this._pass;
     }
@@ -22,11 +26,12 @@ class User {
     set pass(value) {
         this._pass = value;
     }
-    constructor(name, mail, pass) {
+    constructor(name, mail, pass, id) {
         this.bids = [];
         this._name = name;
         this._mail = mail;
         this._pass = pass;
+        this._id = id;
     }
 
     getUsers() {
@@ -34,6 +39,7 @@ class User {
       Name: ${this._name}
       Email: ${this._mail}
       Password: ${this._pass}
+      UserID: ${this._id}
       Bids: ${this.bids}
     `;
     }

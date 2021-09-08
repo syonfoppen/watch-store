@@ -7,11 +7,14 @@ const port = 8080;
 
 app.use(express.json());
 
-let users = require("./collections/productCollection");
+let products = require("./collections/productCollection");
+let users = require("./collections/userCollection");
 
+console.log(products);
 console.log(users);
 
 
+app.use('/users', require('./routes/users'));
 app.use('/api/products', require('./routes/products'));
 
 app.listen(port, () => {
