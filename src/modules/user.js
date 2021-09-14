@@ -9,9 +9,8 @@ class User {
     }
 
     get id() {
-        return this._userId;
+        return this._id;
     }
-
     get pass() {
         return this._pass;
     }
@@ -26,22 +25,12 @@ class User {
     set pass(value) {
         this._pass = value;
     }
+    //connection to bids is with the user and productID (see UML diagram)
     constructor(name, mail, pass, id) {
-        this.bids = [];
         this._name = name;
         this._mail = mail;
         this._pass = pass;
         this._id = id;
-    }
-
-    getUsers() {
-        return `
-      Name: ${this._name}
-      Email: ${this._mail}
-      Password: ${this._pass}
-      UserID: ${this._id}
-      Bids: ${this.bids}
-    `;
     }
 }
 
