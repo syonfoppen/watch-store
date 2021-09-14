@@ -9,11 +9,10 @@ app.use(express.json());
 
 let products = require("./collections/productCollection");
 let users = require("./collections/userCollection");
-
+let bids = require("./collections/bidCollection");
 console.log(products);
-console.log(users);
 
-
+app.use('/api/bids', require('./routes/bids'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/products', require('./routes/products'));
 

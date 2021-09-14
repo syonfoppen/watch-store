@@ -20,14 +20,6 @@ class Bid {
         this._productId = productId;
         this._userId = userId;
     }
-
-    getUsers() {
-        return `
-      UserID: ${this._userId}
-      ProductID: ${this._productId}
-      Amount: ${this._amount}
-    `;
-    }
 }
 
 module.exports = Bid;
