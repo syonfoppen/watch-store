@@ -13,16 +13,6 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 
-//all users
-router.get('',(req, res ) => {
-    res.send(userCollection);
-});
-//get user with specific ID
-router.get('/:id',(req, res ) => {
-    let userObj = userCollection.find(obj => obj._id == req.params.id);
-    res.send(userObj);
-});
-
 //create new user
 router.post('',(req, res ) => {
     //create new user, if the user id is zero or lower give userID 1
@@ -31,6 +21,16 @@ router.post('',(req, res ) => {
     userCollection.push(newUser);
 
     res.status(StatusCodes.CREATED).send(newUser);
+});
+
+//all users
+router.get('',(req, res ) => {
+    res.send(userCollection);
+});
+//get user with specific ID
+router.get('/:id',(req, res ) => {
+    let userObj = userCollection.find(obj => obj._id == req.params.id);
+    res.send(userObj);
 });
 
 //change user with given id
