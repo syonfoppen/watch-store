@@ -20,7 +20,7 @@ router.get('',(req, res ) => {
 
 router.post('',(req, res ) => {
 
-    let newUser = new user( req.body.name, req.body.mail, req.body.pass, userCollection[userCollection.length - 1].id + 1);
+    let newUser = new user( req.body.name, req.body.mail, req.body.pass, ((userCollection.length > 0) ? userCollection[userCollection.length - 1].id + 1 : 1 ));
 
     console.log(req.body);
     console.log(userCollection);

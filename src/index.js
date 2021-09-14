@@ -14,7 +14,7 @@ console.log(products);
 console.log(users);
 
 
-app.use('/users', require('./routes/users'));
+app.use('/api/users', require('./routes/users'));
 app.use('/api/products', require('./routes/products'));
 
 app.listen(port, () => {
