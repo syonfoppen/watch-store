@@ -35,8 +35,9 @@ router.post('',(req, res ) => {
 
 //change user with given id
 router.put('/:id',(req,res ) =>{
-    let userObj = userCollection.find(obj => obj._id == req.params.id);
-
+    let id  = parseInt(req.params.id)
+    userCollection[id - 1] = new user( req.body.name, req.body.mail, req.body.pass, id);
+    res.status(StatusCodes.OK).send(userCollection);
 });
 
 //remove user with specific id
