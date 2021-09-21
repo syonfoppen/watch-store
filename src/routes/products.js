@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 let product = require('../modules/product');
 let productCollection = require("../collections/productCollection")
 let userCollection = require("../collections/userCollection");
-let bidCollection = require("../collections/bidCollection");
 
 
 const router = express.Router();

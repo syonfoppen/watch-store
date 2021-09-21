@@ -55,6 +55,15 @@ class Product {
     set brand(value) {
         this._brand = value;
     }
+
+    set bids(value){
+        this._bids = value;
+    }
+
+    get bids(){
+        return this._bids;
+    }
+
     get iD() {
         return this._iD;
     }
@@ -68,6 +77,7 @@ class Product {
         this._diameter = diameter;
         this._material = material;
         this._waterResistance = waterResistance;
+        this._bids = [];
 
     }
 }

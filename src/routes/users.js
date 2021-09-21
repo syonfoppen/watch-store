@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 
 let user = require('../modules/user');
 let userCollection = require("../collections/userCollection")
+let productCollection = require("../collections/productCollection")
 
 const router = express.Router();
 router.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -29,7 +30,18 @@ router.get('',(req, res ) => {
 });
 //get user with specific ID
 router.get('/:id',(req, res ) => {
-    let userObj = userCollection.find(obj => obj._id == req.params.id);
+    let userObj = Object.assign({} ,userCollection.find(obj => obj._iD == req.params.id));
+    let bids = []
+
+    productCollection.forEach(product => {
+        productBids = [].concat(product._bids.filter(t => t._userId === req.params.id)) ;
+        productBids.forEach(bid => {
+            if (bid != null){
+                bids.push(bid);
+            }
+        });
+    });
+    userObj._bids = bids;
     res.send(userObj);
 });
 
@@ -42,9 +54,10 @@ router.put('/:id',(req,res ) =>{
 
 //remove user with specific id
 router.delete('/:id',(req, res) => {
-    let userObj = userCollection.find(obj => obj._id == req.params.id);
+    let userObj = userCollection.find(obj => obj._iD == req.params.id);
     userCollection.splice(userCollection.indexOf(userObj), 1);
     res.status(StatusCodes.OK).send(userCollection);
 });
 
 module.exports = router;
+

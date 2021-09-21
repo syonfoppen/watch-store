@@ -14,8 +14,14 @@ class Bid {
     set amount(value) {
         this._amount = value;
     }
-    constructor(amount, productId, userId) {
 
+    get id(){
+        return this._id();
+    }
+
+    constructor(id,amount, productId, userId) {
+
+        this._id = id;
         this._amount = amount;
         this._productId = productId;
         this._userId = userId;

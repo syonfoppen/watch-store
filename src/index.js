@@ -9,7 +9,6 @@ app.use(express.json());
 
 let products = require("./collections/productCollection");
 let users = require("./collections/userCollection");
-let bids = require("./collections/bidCollection");
 console.log(products);
 
 app.use('/api/bids', require('./routes/bids'));
