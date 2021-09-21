@@ -18,14 +18,12 @@ router.get('',(req, res ) => {
 
 router.post('',(req, res ) => {
 
-    let newBid = new bid( req.body.name, req.body.mail, req.body.pass, bidCollection[bidCollection.length - 1].id + 1);
+    let newBid = new bid( req.body.amount, req.body.userId, req.body.productId, bidCollection[bidCollection.length - 1].id + 1);
 
     console.log(req.body);
     console.log(bidCollection);
 
     bidCollection.push(newBid);
-
-    1
     res.
     status(StatusCodes.CREATED).send(newBid);
 });

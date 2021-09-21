@@ -10,6 +10,7 @@ function randomPass(length) {
             charactersLength));
     }
     return result;
+
 }
 //create random test data
 for (let i = 0; i < 10; i++) {
