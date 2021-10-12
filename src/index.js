@@ -1,9 +1,15 @@
 const express = require('express');
+const cors = require("cors");
 const app = express();
 
 
-const port = 8080;
+const port = 3001;
 
+app.use(cors());
+
+app.listen(80, function () {
+    console.log('CORS-enabled web server listening on port 80')
+});
 
 app.use(express.json());
 
@@ -15,6 +21,6 @@ app.use('/api/bids', require('./routes/bids'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/products', require('./routes/products'));
 
-app.listen(port, () => {
+app.listen(port,() => {
     console.log(`Example app listening at http://localhost:${port}`)
 });
