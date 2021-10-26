@@ -7,9 +7,6 @@ const port = 3001;
 
 app.use(cors());
 
-app.listen(80, function () {
-    console.log('CORS-enabled web server listening on port 80')
-});
 
 app.use(express.json());
 
