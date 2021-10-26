@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	export let promise
 	let urlencoded = new URLSearchParams();
 	let requestOptions = {
@@ -17,7 +16,7 @@
 <main>
 	<div class="table" style="display:grid; grid-template-rows: repeat(1, 1fr)">
 	{#await promise}
-		loading...
+		<img src="/Loader.gif" alt="loading...">
 	{:then apiResults}
 		<div class="row">
 		<div class="title">Name</div>
