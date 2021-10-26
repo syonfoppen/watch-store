@@ -1,5 +1,4 @@
 
-
 const express = require('express');
 const {StatusCodes} = require('http-status-codes');
 const { v4: uuidv4 } = require('uuid');
@@ -9,6 +8,7 @@ const bodyParser = require('body-parser')
 let bid = require('../modules/bid');
 let productCollection = require("../collections/productCollection")
 let userCollection = require("../collections/userCollection");
+const isLoggedIn = require('../middleware/is-logged-in');
 
 
 const router = express.Router();
@@ -18,10 +18,11 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 
-router.post('',(req, res ) => {
+router.post('', isLoggedIn,(req, res ) => {
 
-    let user = userCollection.find(obj => obj._iD === parseInt(req.body.userId));
-    let newBid = new bid( uuidv4() ,parseInt(req.body.amount), req.body.productId,  req.body.userId);
+    let user = userCollection.find(obj => obj.mail === req.body.email);
+    console.log(user);
+    let newBid = new bid( uuidv4() ,parseInt(req.body.amount), req.body.productId, user._iD);
     let product = productCollection.find(obj => obj._iD === parseInt(req.body.productId));
 
     if (user != null && product != null){

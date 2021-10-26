@@ -20,6 +20,7 @@ console.log(products);
 app.use('/api/bids', require('./routes/bids'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/products', require('./routes/products'));
+app.use('/api/credentials', require('./routes/credentials'));
 
 app.listen(port,() => {
     console.log(`Example app listening at http://localhost:${port}`)
