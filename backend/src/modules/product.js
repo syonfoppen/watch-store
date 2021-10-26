@@ -64,7 +64,7 @@ class Product {
         return this._bids;
     }
 
-    get iD() {
+    get`` iD() {
         return this._iD;
     }
     constructor(iD,brand, model, startingPrice, description, year, diameter, material, waterResistance) {
