@@ -42,7 +42,7 @@ class User {
 
 
     //connection to bids is with the user and productID (see UML diagram)
-    constructor(name, mail, pass, secret , roles,id) {
+    constructor(name, mail, pass, secret , roles ,id) {
         this._name = name;
         this._mail = mail;
         this._pass = pass;

@@ -1,0 +1,117 @@
+#POST: Authorization Request
+POST http://localhost:3001/api/credentials
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "jan@gmail.com",
+  "password": "Jan1234"
+}
+
+> {%
+client.test("JWT Authorization", function() {
+  client.assert(response.status === 201), "Response is not 201"
+
+  client.global.set("token", response.body.token)
+  client.log("Token: " + response.body.token)
+})
+ %}
+
+
+###GET: All users
+GET http://localhost:3001/api/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+ client.test("Request users", function() {
+  client.assert(response.status === 200), "Response is not 200"
+
+  client.log("Content type: " + response.contentType)
+  client.log("Users: " + response.body)
+
+  client.log("Test uuid: " + response.body[0]._iD)
+  client.global.set("uuid", response.body[0]._iD)
+})
+ %}
+
+###GET: single User
+GET http://localhost:3001/api/users/{{uuid}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+ client.test("Request specific user", function() {
+  client.assert(response.status === 200), "Response is not 200"
+
+  client.log("Content type: " + response.contentType)
+  client.log("Username: " + response.body.username)
+})
+ %}
+
+###POST: Create a user
+POST http://localhost:3001/api/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "TestUser",
+  "username": "test@test.com",
+  "password": "Test12345"
+}
+
+> {%
+ client.test("Create user", function() {
+  client.assert(response.status === 201), "Response is not 200"
+
+  client.log("Content type: " + response.contentType)
+  client.log("Created user: " + response.body._iD)
+
+  client.global.set("created_user", response.body._iD)
+
+})
+ %}
+
+###PUT: update a user
+PUT http://localhost:3001/api/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "TestUser",
+    "uuid": "{{created_user}}",
+    "username": "test@test.nl",
+    "password": "DitIsEenSuperSterkWachtwoord12345"
+}
+
+> {%
+ client.test("Update user", function() {
+  client.assert(response.status === 200), "Response is not 200. Something went wrong"
+
+  client.log("Content type: " + response.contentType)
+  client.log("Updated user: " + client.global.get("created_user"))
+})
+ %}
+
+###DELETE: Remove user
+DELETE http://localhost:3001/api/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "uuid": "{{created_user}}"
+}
+
+> {%
+ client.test("delete user", function() {
+  client.assert(response.status === 200), "Response is not 200. Something went wrong"
+
+  client.log("Content type: " + response.contentType)
+  client.log("Deleted user: " + client.global.get("created_user"))
+})
+ %}

@@ -1,0 +1,53 @@
+#POST: Authorization Request
+POST http://localhost:3001/api/credentials
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "jan@gmail.com",
+  "password": "Jan1234"
+}
+
+> {%
+client.test("JWT Authorization", function() {
+  client.assert(response.status === 201), "Response is not 201"
+
+  client.global.set("token", response.body.token)
+  client.log("Token: " + response.body.token)
+})
+ %}
+
+### POST: Add new bid
+POST http://localhost:3001/api/bids
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "productId": "1",
+  "amount": "7000"
+}
+
+> {%
+client.test("place a bit", function() {
+  client.assert(response.status === 201), "Response is not 201"
+
+  client.log("Test uuid: " + response.body._id)
+  client.global.set("uuid", response.body._id)
+})
+ %}
+
+### DELETE: Remove a bid
+DELETE http://localhost:3001/api/bids/1/{{uuid}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test("place a bit", function() {
+  client.assert(response.status === 200), "Response is not 201"
+
+  client.log("Product deleted: " + client.global.get("uuid"))
+})
+ %}
+

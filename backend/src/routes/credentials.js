@@ -3,7 +3,7 @@ const {StatusCodes} = require('http-status-codes');
 let userCollection = require("../collections/userCollection");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const formatError = require('../modules/error') ;
 const router = express.Router();
 
 const login = (username, password ) =>{
@@ -33,11 +33,11 @@ router.post('', (req , res)  => {
             res.status(StatusCodes.CREATED).send({token: token});
         }
         else{
-            res.status(StatusCodes.UNAUTHORIZED).send("Username and/or password incorrect");
+            res.status(StatusCodes.UNAUTHORIZED).send(formatError(StatusCodes.UNAUTHORIZED, "Username and/or password incorrect"));
         }
     }
     else{
-        res.status(StatusCodes.BAD_REQUEST).send("Required paramaeters missing");
+        res.status(StatusCodes.BAD_REQUEST).send(formatError(StatusCodes.UNAUTHORIZED, "Required paramaeters missing"));
     }
 
 });

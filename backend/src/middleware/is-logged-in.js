@@ -1,6 +1,7 @@
 const {StatusCodes} = require('http-status-codes');
 let userCollection = require("../collections/userCollection");
 const jwt = require("jsonwebtoken");
+const formatError = require('../modules/error') ;
 
 const isLoggedIn = (req, res, next) =>
 {
@@ -14,7 +15,7 @@ const isLoggedIn = (req, res, next) =>
         }
     }
 
-    res.status(StatusCodes.UNAUTHORIZED).send('Authentication required')
+    res.status(StatusCodes.UNAUTHORIZED).send(formatError(StatusCodes.UNAUTHORIZED, 'Authentication required') )
 };
 
 const getTokenFromRequest = (req) =>{

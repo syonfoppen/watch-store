@@ -1,0 +1,109 @@
+#POST: Authorization Request
+POST http://localhost:3001/api/credentials
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "jan@gmail.com",
+  "password": "Jan1234"
+}
+
+> {%
+client.test("JWT Authorization", function() {
+  client.assert(response.status === 201), "Response is not 201"
+
+  client.global.set("token", response.body.token)
+  client.log("Token: " + response.body.token)
+})
+ %}
+
+###GET: All products
+GET http://localhost:3001/api/products
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+ client.test("Request products", function() {
+  client.assert(response.status === 200), "Response is not 200"
+
+  client.log("Content type: " + response.contentType)
+  client.log("products: " + response.body)
+
+  client.log("Test uuid: " + response.body[0]._iD)
+  client.global.set("productID", response.body[0]._iD)
+})
+ %}
+
+###GET: a specific product
+GET http://localhost:3001/api/products/{{productID}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+ client.test("Request specific product", function() {
+  client.assert(response.status === 200), "Response is not 200"
+
+  client.log("Content type: " + response.contentType)
+  client.log("product: " + response.body._iD)
+})
+ %}
+
+###GET: get all products of the brand Casia of gold with a minimum price of 5002 and a max diameter of 9
+GET http://localhost:3001/api/products?brand=Casio&material=Gold&minPrice=5002&maxDia=9
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+ client.test("Request products using filters", function() {
+  client.assert(response.status === 200), "Response is not 200"
+  client.log("Content type: " + response.contentType)
+  client.log("product: " + response.body._iD)
+})
+ %}
+
+###POST: Create a new product
+POST http://localhost:3001/api/products
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "brand": "a watch brand",
+  "model": "a watch model",
+  "startingPrice": 30000,
+  "description": "This is a brand new watch men!",
+  "year": 2022,
+  "diameter": 8,
+  "material": "Silver",
+  "waterResistance": false
+}
+
+> {%
+ client.test("Create a new product", function() {
+  client.assert(response.status === 201), "Response is not 200"
+
+  client.log("Content type: " + response.contentType)
+  client.log("Created product: " + response.body._iD)
+
+  client.global.set("created_product", response.body._iD)
+
+})
+ %}
+
+###DELETE: Delete a product
+DELETE http://localhost:3001/api/products/{{created_product}}
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+ client.test("delete user", function() {
+  client.assert(response.status === 200), "Response is not 200. Something went wrong"
+
+  client.log("Content type: " + response.contentType)
+  client.log("Deleted product: " + client.global.get("created_product"))
+})
+ %}
