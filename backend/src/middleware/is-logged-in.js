@@ -3,6 +3,7 @@ let userCollection = require("../collections/userCollection");
 const jwt = require("jsonwebtoken");
 const formatError = require('../modules/error') ;
 
+//look if the current user is loggedin
 const isLoggedIn = (req, res, next) =>
 {
     const token = getTokenFromRequest(req);
@@ -18,6 +19,7 @@ const isLoggedIn = (req, res, next) =>
     res.status(StatusCodes.UNAUTHORIZED).send(formatError(StatusCodes.UNAUTHORIZED, 'Authentication required') )
 };
 
+//get the token from te reqeust
 const getTokenFromRequest = (req) =>{
     const authHeader = req.headers['authorization'];
 
@@ -28,6 +30,7 @@ const getTokenFromRequest = (req) =>{
     return false;
 }
 
+//verify it the token is valid
 const verifyToken = (token) =>{
 
     const tokenPayload = jwt.decode(token);

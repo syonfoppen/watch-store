@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const formatError = require('../modules/error') ;
 const router = express.Router();
 
+//login the user
 const login = (username, password ) =>{
     const user = userCollection.find((user) =>{
         return user.mail === username;
@@ -24,6 +25,7 @@ const login = (username, password ) =>{
     return false;
 };
 
+//authenticate a user
 router.post('', (req , res)  => {
     const { username, password } =  req.body;
 

@@ -1,6 +1,7 @@
 const {StatusCodes} = require('http-status-codes');
 const formatError = require('../modules/error') ;
 
+//look if the currently logged in user is a admin
 const isAdmin = (req, res, next) => {
     if(req.user.roles.indexOf("admin") !== -1){
         return next();
