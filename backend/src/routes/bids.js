@@ -17,7 +17,7 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
-//Place a new bif
+//Place a new bid
 router.post('', isLoggedIn,(req, res ) => {
 
     //get the current logged in user object
