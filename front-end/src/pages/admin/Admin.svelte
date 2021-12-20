@@ -17,6 +17,7 @@
         if (response.ok) {
             return response.json();
         } else {
+            alert(response.text());
             throw new Error(await response.text());
         }
     }

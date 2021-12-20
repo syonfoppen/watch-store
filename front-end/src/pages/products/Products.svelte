@@ -26,12 +26,13 @@
             promise = getProducts();
             return response.json();
         } else {
+            alert(response.text());
             throw new Error(await response.text());
         }
 
     }
-    async function removeBid(id){
-        const response = await fetch("http://localhost:3001/api/bids", {
+    async function removeBid(id, uuid){
+        const response = await fetch("http://localhost:3001/api/bids/" + id + "/" + uuid, {
             method: "DELETE",
             headers: {
                 "Content-type": "application/json",
@@ -40,32 +41,12 @@
         });
 
         if (response.ok) {
+            //update products
+            promise = getProducts();
             return response.json();
         } else {
+            alert(response.text());
             throw new Error(await response.text());
-        }
-    }
-    async function loadBid(id, arr){
-
-        let element = document.getElementById("bid"+id);
-        if(element.className == "loaded"){
-            if(element.style.display == "block"){
-                element.style.display = "none";
-            }else{
-                element.style.display = "block";
-            }
-        }else{
-            element.className = "loaded";
-            element.style.display = "block";
-            if(arr.length < 1){
-                element.innerHTML = "add";
-            }else{
-                for (let i = 0; i < arr.length; i++) {
-                    const bid = document.createElement("div");
-                    bid.innerText = arr[i]._amount;
-                    element.appendChild(bid);
-                }
-            }
         }
 
     }
@@ -81,6 +62,7 @@
         if (response.ok) {
             return response.json();
         } else {
+            alert(response.text());
             throw new Error(await response.text());
         }
     }
@@ -101,11 +83,13 @@
                     <div clas="info">Material: {result._material}</div>
 
                     <div class="info">{result._description}</div>
-                    <div class="info"><button on:click={loadBid(result._iD, result._bids)}>check bids</button></div>
-                    <div id="bid{result._iD}" style="display:none">
+                    <div id="bid{result._iD}">
                         <h3>place bid</h3>
                         <input placeholder="Amount" id="input{result._iD}"/>
                         <button type="button" on:click={addBid(result._iD)}>add bid</button>
+                        {#each result._bids.reverse() as bid}
+                            <div>{bid._amount}<button on:click={removeBid(result._iD,bid._id)}>remove bid</button></div>
+                        {/each}
                     </div>
                 </div>
             {/each}

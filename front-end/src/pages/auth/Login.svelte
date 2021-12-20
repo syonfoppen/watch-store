@@ -10,14 +10,14 @@
     //variables
     const form = useForm();
 
-    let username = "";
+    let email = "";
     let password = "";
     //functions
     async function login() {
         const response = await fetch("http://localhost:3001/api/credentials", {
             method: "POST",
             body: JSON.stringify({
-                "username": username,
+                "username": email,
                 "password": password
             }),
             headers: {
@@ -36,6 +36,7 @@
             alert("You logged in");
             router.redirect("/");
         } else {
+            alert(response.text());
             throw new Error(await response.text());
         }
     }
@@ -46,7 +47,7 @@
     <form use:form>
         <h3>Login</h3>
         <div>
-            <input type="text" name="username" placeholder="username" use:validators={[required]} bind:value={username} />
+            <input type="text" name="email" placeholder="email" use:validators={[required]} bind:value={username} />
             <HintGroup for="email">
                 <Hint on="required">This is an mandatory field</Hint>
                 <Hint on="email" hideWhenRequired>Email is not valid</Hint>
